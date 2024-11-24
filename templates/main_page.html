@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>testing</title>
+</head>
+<body>
+    <form method="POST" action="{% url 'save_note' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div id="note-div" contenteditable="true" style="border: 1px solid black; padding: 10px;">
+        Write your note here...
+    </div>
+    <input type="hidden" id="note-content" name="content">
+    <button type="submit" onclick="saveContent()">Save Note</button>
+</form>
+
+<script>
+function saveContent() {
+    var content = document.getElementById('note-div').innerHTML;  // Get the rich text content
+    document.getElementById('note-content').value = content;  // Set the hidden form input to the content
+}
+</script>
+
+</body>
+</html>

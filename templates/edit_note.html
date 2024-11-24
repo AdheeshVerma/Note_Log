@@ -1,0 +1,125 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Note</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&family=Playwrite+HU:wght@100..400&display=swap" rel="stylesheet">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles1.css' %}">
+</head>
+<body>
+    <div class="main">
+        <div class="header">Edit Your Note: {{ user.username }}</div>
+        <div class="toolbar">
+            <div class="left_section">
+                <ul class="tool_manager">
+                    <li class="tools"></li>
+                        <a href="/"><img src="{% static "/svgs/home.svg" %}"  alt="" class="tool_icons" id="homee"></a>
+                    </li>
+                    <li class="tools">
+                        <img src="{% static "/svgs/bold.svg"%}" alt="" class="tool_icons" onclick="document.execCommand('bold')">
+                    </li>
+                    <li class="tools"  onclick="document.execCommand('underline')">
+                        <img src="{% static "/svgs/underline.svg"%}" alt="" class="tool_icons">
+                    </li>
+                    <li class="tools"  onclick="document.execCommand('italic')">
+                        <img src="{% static "/svgs/italic.svg"%}" alt="" class="tool_icons">
+                    </li>
+                    <li class="tools"  onclick="document.execCommand('undo')">
+                        <img src="{% static "/svgs/undo.svg"%}" alt="" class="tool_icons">
+                    </li>                
+                    <li class="tools" id="clear">
+                        <img src="{% static "/svgs/delete.svg"%}" alt="" class="tool_icons">
+                    </li>                
+                    <li class="tools" id="fontsize">
+                        <img src="{% static "svgs/text.svg"%}" alt="">
+                        <select id="fontSizeSelector" class="tool_icons">
+                            <option value="14px">14px</option>
+                            <option value="16px" selected>16px</option>
+                            <option value="18px">18px</option>
+                            <option value="20px">20px</option>
+                            <option value="24px">24px</option>
+                            <option value="24px">28px</option>
+                        </select>
+                    </li>
+                    <li class="tools" id="colorpalleteli">
+                        <img src="{% static "svgs/color.svg"%}" alt="">
+                        <select id="colorpallete" onchange="changeTextColor(this.value)">
+                            <option value="black">White</option>
+                            <option value="red">Red</option>
+                            <option value="blue">Blue</option>
+                            <option value="yellow">Yellow</option>
+                            <option value="green">Green</option>
+                        </select>
+                    </li>
+                    <li class="tools" id="img_add">
+                        <div class="image-upload">
+                            <img src="{% static "/svgs/add_img.svg"%}" alt="Upload Icon" style="cursor: pointer;" class="tool_icons" id="img_icon">
+                            <input type="file" id="imageInput" style="display: none;" accept="image/*">
+                        </div> 
+                    </li> 
+                    <li class="tools" id="clear">
+                        <div class="audio-upload">
+                            <img id="uploadAudioIcon" src="{% static "/svgs/music.svg"%}" alt="Audio Icon" style="cursor: pointer;">
+                            <input type="file" id="audioInput" style="display: none;" accept="audio/*">
+                        </div>
+                        <!-- <img src="/svgs/music.svg" id="img_icon" alt="" class="tool_icons"> -->
+                    </li> 
+                </ul>
+            </div>
+        </div>
+    
+        <hr>
+    
+        <div class="bg">
+            <div class="editable-div" id="message" name="message" placeholder="Edit your note" required>
+    
+                <!-- Form to edit the note -->
+<form method="POST" action="{% url 'edit_note' note.id %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    
+    <!-- Title -->
+    <div id="title" contenteditable="true" spellcheck="false">
+        {{ note.title|safe }} <!-- Pre-fill the title -->
+    </div>
+    <input type="hidden" id="note-title" name="title">
+    
+    <!-- Content -->
+    <div id="normal" contenteditable="true" spellcheck="false">
+        {{ note.content|safe }} <!-- Pre-fill the content -->
+    </div>
+    <input type="hidden" id="note-content" name="content">
+    
+    <!-- Save button -->
+    <button type="submit" onclick="saveContent()" id="riyal_save">Save Changes</button>
+</form>
+
+            </div>
+        </div>
+        <div class="footer"></div>
+    </div>
+    
+    <script>
+        function saveContent() {
+            var title = document.getElementById('title').innerHTML;  // Get the rich text content for the title
+            document.getElementById('note-title').value = title;
+    
+            var content = document.getElementById('normal').innerHTML;  // Get the rich text content for the note
+            document.getElementById('note-content').value = content;  // Set the hidden form input to the content
+        }
+    </script>
+    
+
+<script src="{% static 'note_script.js' %}"></script>
+</html>

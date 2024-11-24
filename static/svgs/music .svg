@@ -1,0 +1,13 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30">
+	<title>add-svg</title>
+	<defs>
+		<image width="48" height="48" id="img1" href="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KDTwhLS0gVXBsb2FkZWQgdG86IFNWRyBSZXBvLCB3d3cuc3ZncmVwby5jb20sIEdlbmVyYXRvcjogU1ZHIFJlcG8gTWl4ZXIgVG9vbHMgLS0+DQo8c3ZnIHdpZHRoPSI4MDBweCIgaGVpZ2h0PSI4MDBweCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPg0KPGcgaWQ9IkVkaXQgLyBBZGRfUGx1cyI+DQo8cGF0aCBpZD0iVmVjdG9yIiBkPSJNNiAxMkgxMk0xMiAxMkgxOE0xMiAxMlYxOE0xMiAxMlY2IiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+DQo8L2c+DQo8L3N2Zz4="/>
+	</defs>
+	<style>
+		.s0 { fill: white; stroke: white;} 
+	</style>
+	<path class="s0" d="m18.2 6.4q-0.1-0.1-0.3-0.1-0.1-0.1-0.3-0.1-0.1-0.1-0.3-0.1-0.1 0-0.3 0.1l-10.6 2.8q-0.3 0.1-0.5 0.3-0.3 0.1-0.4 0.4-0.2 0.2-0.3 0.5-0.1 0.2-0.1 0.5v12.1c0 0.3-0.2 0.6-0.6 0.7l-2.8 1c-1 0.4-1.7 1.3-1.7 2.5q0 0.4 0.1 0.7 0.1 0.4 0.2 0.7 0.2 0.3 0.4 0.6 0.2 0.2 0.5 0.4 0.2 0.2 0.4 0.3 0.2 0.1 0.4 0.2 0.3 0 0.5 0.1 0.2 0 0.4 0 0.2 0 0.3 0 0.1 0 0.2 0 0.1-0.1 0.3-0.1 0.1 0 0.2-0.1l1.2-0.4q0.4-0.1 0.7-0.3 0.3-0.3 0.5-0.6 0.3-0.3 0.4-0.7 0.1-0.4 0.1-0.8v-11.3c0-0.4 0.3-0.7 0.7-0.8l9.3-2.5q0 0 0.1 0 0 0 0.1 0.1 0 0 0 0 0 0.1 0 0.1v7.6c0 0.4-0.2 0.7-0.5 0.8h-0.1l-2.7 0.9q-0.4 0.2-0.7 0.4-0.3 0.3-0.6 0.6-0.2 0.3-0.3 0.7-0.2 0.4-0.2 0.9 0 0.3 0.1 0.7 0.1 0.3 0.3 0.6 0.1 0.3 0.3 0.6 0.3 0.3 0.6 0.5 0.3 0.2 0.6 0.3 0.3 0.2 0.6 0.2 0.4 0.1 0.7 0 0.4 0 0.7-0.1l1.2-0.4q0.4-0.2 0.7-0.4 0.3-0.2 0.6-0.6 0.2-0.3 0.3-0.7 0.1-0.3 0.1-0.7v-17q0.1-0.1 0-0.3 0-0.1-0.1-0.3-0.1-0.1-0.2-0.3-0.1-0.1-0.2-0.2z"/>
+	<g id="Edit / Add_Plus_Circle">
+		<use id="addd" href="#img1" transform="matrix(.375,0,0,.375,15,-3)"/>
+	</g>
+</svg>
