@@ -84,7 +84,7 @@ def edit_note(request, note_id):
         note.title = request.POST.get('title')
         note.content = request.POST.get('content')
         note.save()
-        return redirect('some_view_to_display_notes')  # Redirect to a view where the updated note can be displayed
+        return redirect('inner_home')  
 
     return render(request, 'edit_note.html', {'note': note})
 def logout_view(request):

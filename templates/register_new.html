@@ -1,0 +1,99 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static '/css/register.css' %}">
+    <title>Register</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "Poppins", sans-serif;
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: url(./background.jpg) no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+        .register-box {
+            width: 450px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 15px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+        .register-box h1 {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .register-box form .input-box {
+            position: relative;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .register-box form .input-box input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border: none;
+            outline: none;
+            border-radius: 10px;
+            font-size: 16px;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        .register-box form .input-box input::placeholder {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .register-box .btn {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.7);
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            color: #333;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .register-box .btn:hover {
+            background: rgba(255, 255, 255, 0.9);
+        }
+    </style>
+</head>
+<body>
+    <div class="register-box">
+        <h1>Registration Form</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="input-box">
+                {{ form.username|as_crispy_field }}
+            </div>
+            <div class="input-box">
+                {{ form.email|as_crispy_field }}
+            </div>
+            <div class="input-box">
+                {{ form.password1|as_crispy_field }}
+            </div>
+            <div class="input-box">
+                {{ form.password2|as_crispy_field }}
+            </div>
+            <button type="submit" class="btn">Register</button>
+        </form>
+    </div>
+</body>
+</html>

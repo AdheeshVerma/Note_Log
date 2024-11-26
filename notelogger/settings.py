@@ -27,6 +27,7 @@ SECRET_KEY = 'django-insecure-^^=r8b8&e7k^9fdlg5-d(ddgirul@k6#o9sep*^p$c^^a&m2&1
 DEBUG = True
 
 ALLOWED_HOSTS = []
+# CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 # Application definition
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'notes',
+    # 'crispy_forms',
 ]
 
 MIDDLEWARE = [
