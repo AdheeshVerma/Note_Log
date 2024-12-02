@@ -90,3 +90,4 @@ def edit_note(request, note_id):
 def logout_view(request):
     logout(request)  # This logs out the user
     return redirect('login')
+

@@ -30,7 +30,7 @@ function setFontSize(size) {
   })
 
 
-    // ======================== Add Image ============================== //
+// ======================== Add Image ============================== //
 
   document.getElementById("img_icon").addEventListener("click", function() {
     document.getElementById("imageInput").click(); // Trigger file input click
