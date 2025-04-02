@@ -4,10 +4,9 @@ from django.contrib import admin
 from django.contrib import admin
 from .models import Note
 
-# Customize the Note model display in the admin panel
 class NoteAdmin(admin.ModelAdmin):
-    list_display = ('user', 'created_at', 'updated_at')  # Display these fields in the admin list view
-    search_fields = ('user__username', 'content','title')  # Add search capability for user and content fields
-    list_filter = ('created_at', 'updated_at')  # Add filters for creation and update dates
+    list_display = ('user', 'created_at', 'updated_at')  
+    search_fields = ('user__username', 'content','title')
+    list_filter = ('created_at', 'updated_at')
 
 admin.site.register(Note, NoteAdmin)

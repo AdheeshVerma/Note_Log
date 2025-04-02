@@ -7,11 +7,11 @@ from django.core.validators import RegexValidator
 from django.utils import timezone
 
 class Note(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)  # Link to the user who created the note
-    title = models.TextField(blank=True)  # Field to store the rich text from contenteditable div
-    content = models.TextField()  # Field to store the rich text from contenteditable div
-    created_at = models.DateTimeField(default=timezone.now)  # Auto-populates with the current date and time when note is created
-    updated_at = models.DateTimeField(auto_now=True)  # Auto-updates the timestamp whenever the note is saved
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.TextField(blank=True)
+    content = models.TextField()
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"Note by {self.user.username} on {self.created_at.strftime('%Y-%m-%d')}"
