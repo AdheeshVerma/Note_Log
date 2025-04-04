@@ -73,7 +73,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 16px;
+    padding: 30px 16px;
     background-color: rgba(30, 30, 30, 0.9);
     border-bottom: 1px solid var(--border-color);
     height: var(--header-height);
@@ -89,8 +89,8 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 16px;
-    background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+    padding: 8px 8px;
+    background: rgb(41, 144, 59);
     color: white;
     border: none;
     border-radius: 6px;
@@ -104,7 +104,7 @@ body {
 
 #save-button:hover {
     transform: translateY(-2px);
-    box-shadow: var(--glow-blue);
+    box-shadow: var(--glow-green);
 }
 
 .save-icon {
@@ -228,7 +228,7 @@ body {
     font-family: "Poppins", sans-serif;
     color: white;
     padding-bottom: 10px;
-    border-bottom: 2px solid rgba(79, 70, 229, 0.3);
+    border-bottom: 2px solid rgb(68, 68, 68);
 }
 
 #title:focus {
