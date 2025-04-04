@@ -6,41 +6,146 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inner Home</title>
+    <title>Notes App</title>
 </head>
 <body>
     <div class="sidebar">
         <h2>Menu</h2>
-        <a href=""><img src="{% static "/svgs/home.svg" %}"  alt="" class="tool_icons" id="homee"></a>
-        <a href="notes"><img src="{% static "/svgs/newfile.svg" %}"  alt="" class="tool_icons" id="homee"></a>
-        <a href="logout"><img src="{% static "/svgs/logout.svg" %}"  alt="" class="tool_icons" id="homee"></a>
+        <a href="" class="sidebar-link active">
+            <img src="{% static '/svgs/home.svg' %}" alt="Home" class="tool_icons">
+        </a>
+        <a href="notes" class="sidebar-link">
+            <img src="{% static '/svgs/newfile.svg' %}" alt="New Note" class="tool_icons">
+        </a>
+        <a href="logout" class="sidebar-link">
+            <img src="{% static '/svgs/logout.svg' %}" alt="Logout" class="tool_icons">
+        </a>
     </div>
 
     <!-- Main content -->
     <div class="main-content">
-        <h1>Welcome {{ username }},</h1>
+        <div class="header-section">
+            <div class="welcome-text">
+                <h1>Welcome {{ username }},</h1>
+                <p class="notes-count">You have <span id="note-count">{{ user_notes|length }}</span> notes saved</p>
+            </div>
+            <div class="search-container">
+                <div class="search-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-icon">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" placeholder="Search notes..." class="search-input" id="search-input">
+                </div>
+                <a href="notes" class="new-note-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="plus-icon">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    New Note
+                </a>
+            </div>
+        </div>
+
         <h2 id="saveit">Access Your Saved Notes</h2>
-        <hr>
-        <div class="cards-container">
-            {% if user_notes %}
+        <hr class="divider">
+
+        {% if user_notes %}
+            <div class="cards-container" id="notes-container">
                 {% for note in user_notes %}
-                    <div class="card-wrapper">
-                        <div class="card">
-                            <!-- Link to the note edit page -->
-                            <a href="{% url 'edit_note' note.id %}" style="text-decoration:none; color:white;">
-                                <h2>{{ note.title }}</h2>
-                                <p>{{ note.content|striptags }}</p>
-                                <p class="note-date">Saved on: {{ note.created_at }}</p>
+                    <div class="card-wrapper" data-note-title="{{ note.title|lower }}" data-note-content="{{ note.content|striptags|lower }}">
+                        <div class="card" data-color="color-{{ forloop.counter|divisibleby:6|yesno:'6,forloop.counter' }}">
+                            <a href="{% url 'edit_note' note.id %}" class="card-link">
+                                <div class="card-header">
+                                    <h3 class="card-title">{{ note.title }}</h3>
+                                </div>
+                                <div class="card-content">
+                                    <p class="note-content">{{ note.content|striptags }}</p>
+                                </div>
+                                <div class="card-footer">
+                                    <p class="note-date">Saved on: {{ note.created_at }}</p>
+                                </div>
                             </a>
                         </div>
                     </div>
                 {% endfor %}
-            {% else %}
-                <p>You have no saved notes yet.</p>
-            {% endif %}
-        </div>
+            </div>
+            <div id="no-results" class="empty-state" style="display: none;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="empty-icon">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <p class="empty-text">No notes match your search</p>
+                <button class="empty-button" id="clear-search">Clear search</button>
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="empty-icon">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                <p class="empty-text">You have no saved notes yet.</p>
+                <a href="notes" class="empty-button">Create your first note</a>
+            </div>
+        {% endif %}
     </div>
+
+    <script>
+        // Search functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search-input');
+            const notesContainer = document.getElementById('notes-container');
+            const noteCards = document.querySelectorAll('.card-wrapper');
+            const noResults = document.getElementById('no-results');
+            const noteCountElement = document.getElementById('note-count');
+            const clearSearchButton = document.getElementById('clear-search');
+            
+            if (searchInput && noteCards.length > 0) {
+                searchInput.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase().trim();
+                    let visibleCount = 0;
+                    
+                    noteCards.forEach(card => {
+                        const title = card.getAttribute('data-note-title');
+                        const content = card.getAttribute('data-note-content');
+                        
+                        if (title.includes(searchTerm) || content.includes(searchTerm) || searchTerm === '') {
+                            card.style.display = '';
+                            visibleCount++;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                    
+                    // Update note count
+                    noteCountElement.textContent = visibleCount;
+                    
+                    // Show/hide no results message
+                    if (visibleCount === 0 && searchTerm !== '') {
+                        notesContainer.style.display = 'none';
+                        noResults.style.display = 'flex';
+                    } else {
+                        notesContainer.style.display = 'grid';
+                        noResults.style.display = 'none';
+                    }
+                });
+                
+                // Clear search button
+                if (clearSearchButton) {
+                    clearSearchButton.addEventListener('click', function() {
+                        searchInput.value = '';
+                        searchInput.dispatchEvent(new Event('input'));
+                        searchInput.focus();
+                    });
+                }
+            }
+        });
+    </script>
 </body>
 </html>
