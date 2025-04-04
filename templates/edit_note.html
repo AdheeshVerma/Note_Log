@@ -11,115 +11,195 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&family=Playwrite+HU:wght@100..400&display=swap" rel="stylesheet">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/styles1.css' %}">
 </head>
 <body>
-    <div class="main">
-        <div class="header">Edit Your Note: {{ user.username }}</div>
-        <div class="toolbar">
-            <div class="left_section">
-                <ul class="tool_manager">
-                    <li class="tools"></li>
-                        <a href="/"><img src="{% static "/svgs/home.svg" %}"  alt="" class="tool_icons" id="homee"></a>
-                    </li>
-                    <li class="tools">
-                        <img src="{% static "/svgs/bold.svg"%}" alt="" class="tool_icons" onclick="document.execCommand('bold')">
-                    </li>
-                    <li class="tools"  onclick="document.execCommand('underline')">
-                        <img src="{% static "/svgs/underline.svg"%}" alt="" class="tool_icons">
-                    </li>
-                    <li class="tools"  onclick="document.execCommand('italic')">
-                        <img src="{% static "/svgs/italic.svg"%}" alt="" class="tool_icons">
-                    </li>
-                    <li class="tools"  onclick="document.execCommand('undo')">
-                        <img src="{% static "/svgs/undo.svg"%}" alt="" class="tool_icons">
-                    </li>                
-                    <li class="tools" id="clear">
-                        <img src="{% static "/svgs/delete.svg"%}" alt="" class="tool_icons">
-                    </li>                
-                    <li class="tools" id="fontsize">
-                        <img src="{% static "svgs/text.svg"%}" alt="">
-                        <select id="fontSizeSelector" class="tool_icons">
-                            <option value="14px">14px</option>
-                            <option value="16px" selected>16px</option>
-                            <option value="18px">18px</option>
-                            <option value="20px">20px</option>
-                            <option value="24px">24px</option>
-                            <option value="24px">28px</option>
-                        </select>
-                    </li>
-                    <li class="tools" id="colorpalleteli">
-                        <img src="{% static "svgs/color.svg"%}" alt="">
-                        <select id="colorpallete" onchange="changeTextColor(this.value)">
-                            <option value="black">White</option>
-                            <option value="red">Red</option>
-                            <option value="blue">Blue</option>
-                            <option value="yellow">Yellow</option>
-                            <option value="green">Green</option>
-                        </select>
-                    </li>
-                    <li class="tools" id="img_add">
-                        <div class="image-upload">
-                            <img src="{% static "/svgs/add_img.svg"%}" alt="Upload Icon" style="cursor: pointer;" class="tool_icons" id="img_icon">
-                            <input type="file" id="imageInput" style="display: none;" accept="image/*">
-                        </div> 
-                    </li> 
-                    <li class="tools" id="clear">
-                        <div class="audio-upload">
-                            <img id="uploadAudioIcon" src="{% static "/svgs/music.svg"%}" alt="Audio Icon" style="cursor: pointer;">
-                            <input type="file" id="audioInput" style="display: none;" accept="audio/*">
-                        </div>
-                        <!-- <img src="/svgs/music.svg" id="img_icon" alt="" class="tool_icons"> -->
-                    </li> 
-                </ul>
+    <div class="editor-container">
+        <div class="main">
+            <div class="header">
+                <div class="header-title">Edit Your Note: {{ user.username }}</div>
+                <button type="submit" onclick="saveContent()" id="save-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="save-icon">
+                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                        <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                        <polyline points="7 3 7 8 15 8"></polyline>
+                    </svg>
+                    Save Changes
+                </button>
+            </div>
+            <div class="toolbar">
+                <div class="left_section">
+                    <ul class="tool_manager">
+                        <li class="tools">
+                            <a href="/" class="tool-link">
+                                <img src="{% static '/svgs/home.svg' %}" alt="" class="tool_icons" id="homee">
+                            </a>
+                        </li>
+                        <li class="tools">
+                            <button class="tool-button" onclick="document.execCommand('bold')">
+                                <img src="{% static '/svgs/bold.svg' %}" alt="" class="tool_icons">
+                            </button>
+                        </li>
+                        <li class="tools">
+                            <button class="tool-button" onclick="document.execCommand('underline')">
+                                <img src="{% static '/svgs/underline.svg' %}" alt="" class="tool_icons">
+                            </button>
+                        </li>
+                        <li class="tools">
+                            <button class="tool-button" onclick="document.execCommand('italic')">
+                                <img src="{% static '/svgs/italic.svg' %}" alt="" class="tool_icons">
+                            </button>
+                        </li>
+                        <li class="tools">
+                            <button class="tool-button" onclick="document.execCommand('undo')">
+                                <img src="{% static '/svgs/undo.svg' %}" alt="" class="tool_icons">
+                            </button>
+                        </li>                
+                        <li class="tools" id="clear">
+                            <button class="tool-button">
+                                <img src="{% static '/svgs/delete.svg' %}" alt="" class="tool_icons">
+                            </button>
+                        </li>                
+                        <li class="tools" id="fontsize">
+                            <div class="select-wrapper">
+                                <img src="{% static 'svgs/text.svg' %}" alt="" class="tool_icons">
+                                <select id="fontSizeSelector" class="tool_icons">
+                                    <option value="14px">14px</option>
+                                    <option value="16px" selected>16px</option>
+                                    <option value="18px">18px</option>
+                                    <option value="20px">20px</option>
+                                    <option value="24px">24px</option>
+                                    <option value="28px">28px</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="tools" id="colorpalleteli">
+                            <div class="select-wrapper">
+                                <img src="{% static 'svgs/color.svg' %}" alt="" class="tool_icons">
+                                <select id="colorpallete" onchange="changeTextColor(this.value)">
+                                    <option value="white">White</option>
+                                    <option value="red">Red</option>
+                                    <option value="blue">Blue</option>
+                                    <option value="yellow">Yellow</option>
+                                    <option value="green">Green</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="tools" id="img_add">
+                            <div class="image-upload">
+                                <button class="tool-button">
+                                    <img src="{% static '/svgs/add_img.svg' %}" alt="Upload Icon" class="tool_icons" id="img_icon">
+                                </button>
+                                <input type="file" id="imageInput" style="display: none;" accept="image/*">
+                            </div> 
+                        </li> 
+                        <li class="tools" id="audio-upload">
+                            <div class="audio-upload">
+                                <button class="tool-button">
+                                    <img id="uploadAudioIcon" src="{% static '/svgs/music.svg' %}" alt="Audio Icon">
+                                </button>
+                                <input type="file" id="audioInput" style="display: none;" accept="audio/*">
+                            </div>
+                        </li> 
+                    </ul>
+                </div>
+            </div>
+        
+            <div class="editor-content">
+                <div class="bg">
+                    <div class="editable-div" id="message" name="message" placeholder="Edit your note" required>
+                        <!-- Form to edit the note -->
+                        <form method="POST" action="{% url 'edit_note' note.id %}" id="note-form">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            
+                            <!-- Title -->
+                            <div id="title" contenteditable="true" spellcheck="false">
+                                {{ note.title|safe }}
+                            </div>
+                            <input type="hidden" id="note-title" name="title">
+                            
+                            <!-- Content -->
+                            <div id="normal" contenteditable="true" spellcheck="false">
+                                {{ note.content|safe }} <!-- Pre-fill the content -->
+                            </div>
+                            <input type="hidden" id="note-content" name="content">
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-    
-        <hr>
-    
-        <div class="bg">
-            <div class="editable-div" id="message" name="message" placeholder="Edit your note" required>
-    
-                <!-- Form to edit the note -->
-<form method="POST" action="{% url 'edit_note' note.id %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    
-    <!-- Title -->
-    <div id="title" contenteditable="true" spellcheck="false">
-        {{ note.title|safe }}
-    </div>
-    <input type="hidden" id="note-title" name="title">
-    
-    <!-- Content -->
-    <div id="normal" contenteditable="true" spellcheck="false">
-        {{ note.content|safe }} <!-- Pre-fill the content -->
-    </div>
-    <input type="hidden" id="note-content" name="content">
-    
-    <!-- Save button -->
-    <button type="submit" onclick="saveContent()" id="riyal_save">Save Changes</button>
-</form>
-
-            </div>
-        </div>
-        <div class="footer"></div>
     </div>
     
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Connect file inputs to their buttons
+            document.getElementById('img_icon').addEventListener('click', function() {
+                document.getElementById('imageInput').click();
+            });
+            
+            document.getElementById('uploadAudioIcon').addEventListener('click', function() {
+                document.getElementById('audioInput').click();
+            });
+            
+            // Handle image upload
+            document.getElementById('imageInput').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const img = document.createElement('img');
+                        img.src = event.target.result;
+                        img.style.maxWidth = '100%';
+                        document.getElementById('normal').appendChild(img);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // Handle font size changes
+            document.getElementById('fontSizeSelector').addEventListener('change', function() {
+                document.execCommand('fontSize', false, '7');
+                const fontElements = document.getElementsByTagName('font');
+                for (let i = 0; i < fontElements.length; i++) {
+                    if (fontElements[i].size === '7') {
+                        fontElements[i].removeAttribute('size');
+                        fontElements[i].style.fontSize = this.value;
+                    }
+                }
+            });
+            
+            // Connect save button to form submission
+            document.getElementById('save-button').addEventListener('click', function(e) {
+                e.preventDefault();
+                saveContent();
+                document.getElementById('note-form').submit();
+            });
+            
+            // Clear button functionality
+            document.getElementById('clear').addEventListener('click', function() {
+                if (confirm('Are you sure you want to clear the content?')) {
+                    document.getElementById('normal').innerHTML = '';
+                }
+            });
+        });
+        
         function saveContent() {
-            var title = document.getElementById('title').innerHTML;  // Get the rich text content for the title
+            var title = document.getElementById('title').innerHTML;
             document.getElementById('note-title').value = title;
     
-            var content = document.getElementById('normal').innerHTML;  // Get the rich text content for the note
-            document.getElementById('note-content').value = content;  // Set the hidden form input to the content
+            var content = document.getElementById('normal').innerHTML;
+            document.getElementById('note-content').value = content;
+        }
+        
+        function changeTextColor(color) {
+            document.execCommand('foreColor', false, color);
         }
     </script>
-    
-
-<script src="{% static 'note_script.js' %}"></script>
+</body>
 </html>
