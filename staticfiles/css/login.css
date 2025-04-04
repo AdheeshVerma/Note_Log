@@ -1,5 +1,6 @@
 body {
-    background-color: rgba(0, 0, 0, 0.90);
+    background: url('bg5.jpg') no-repeat center center fixed;
+    background-size: cover;
     font-family: "Parkinsans", sans-serif;
     color: white;
     margin: 0;
@@ -18,13 +19,14 @@ h2 {
 }
 
 form {
-    background-color: #2e2e2e;
-    font-family: "Parkinsans", sans-serif;
+    backdrop-filter: blur(10px);
+    background-color: rgba(32, 40, 58,0.15);; 
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     padding: 40px;
     width: 400px;
     max-width: 90%;
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 label {
@@ -32,6 +34,7 @@ label {
     margin-bottom: 8px;
     font-size: 18px;
     font-weight: 600;
+    color: white;
 }
 
 input[type="text"],
@@ -41,21 +44,27 @@ input[type="email"] {
     padding: 10px;
     font-size: 15px;
     margin-bottom: 15px;
-    border: 1px solid #ccc;
+    border: none;
     border-radius: 5px;
-    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 input[type="text"]:focus,
 input[type="password"]:focus,
 input[type="email"]:focus {
     outline: none;
-    border: 1px solid #66afe9;
+    border: 1px solid rgba(102, 175, 233, 0.5);
     box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
 }
 
+input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
 button[type="submit"] {
-    background-color: #28a745;
+    background-color: rgba(32, 40, 58,0.4);
     color: white;
     border: none;
     padding: 10px 20px;
@@ -64,20 +73,20 @@ button[type="submit"] {
     cursor: pointer;
     width: 100%;
     margin-top: 10px;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
 }
 
 button[type="submit"]:hover {
-    background-color: #218838;
+    background-color: rgba(32, 40, 58,0.5);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.5);
 }
-
-
 
 @media (max-width: 480px) {
     form {
         width: 90%;
         padding: 20px;
     }
-    
+
     h2 {
         font-size: 25px;
     }

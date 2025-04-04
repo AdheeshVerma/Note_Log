@@ -29,43 +29,8 @@ function setFontSize(size) {
     document.getElementById("normal").innerHTML = "";
   })
 
-  // ====================Save Button============================== //
 
-  const button= document.querySelector('#save').addEventListener('click',(event)=>{
-    event.preventDefault(); // Prevent default form submission
-
-    const notes = document.getElementById('normal').innerHTML; // Retrieve normal content
-    const title = document.getElementById('title').innerText; // Retrieve title content
-    const timeit = new Date().toLocaleString();
-
-    localStorage.setItem('SavedNotes', notes); // Store in localStorage
-    localStorage.setItem('SavedTitle', title); // Store in localStorage
-    localStorage.setItem('SavedTime', timeit); // Store in localStorage
-    alert("Notes saved!");
-
-    console.log('SavedNotes :', notes);
-    console.log('SavedTitle :', title);
-    console.log('SavedTime :', timeit);
-  })
-
-  // ====================== Retreiv notes ============================== //
-
-  const retreiver = document.querySelector('#retreive').addEventListener('click',(event)=>{
-    event.preventDefault();
-    const savedNotes = localStorage.getItem('SavedNotes');
-    const savedTitle = localStorage.getItem('SavedTitle');
-    const savedTime = localStorage.getItem('SavedTime');
-            if (savedNotes && savedTime) {
-                document.getElementById('normal').innerHTML = `${savedNotes} <br> <br> Saved on: ${savedTime}`;
-                document.querySelector('#title').innerHTML = savedTitle;
-                alert("Notes retrieved!");
-            } else {
-                alert("No notes found.");
-            }
-        
-  })
-
-    // ======================== Add Image ============================== //
+// ======================== Add Image ============================== //
 
   document.getElementById("img_icon").addEventListener("click", function() {
     document.getElementById("imageInput").click(); // Trigger file input click
@@ -153,11 +118,3 @@ function addPlaceholder(div, placeholderText) {
 // Add placeholders to the title and content divs
 addPlaceholder(titleDiv, 'Title');
 addPlaceholder(normalDiv, 'Enter Your Thoughts...');
-
-    // ======================== Clear Storage ============================== //
-
-document.getElementById('storage_clear').addEventListener("click",function(){
-  localStorage.setItem('SavedNotes', "");
-  localStorage.setItem('SavedTitle', "");
-  localStorage.setItem('SavedTime', "");
-})
