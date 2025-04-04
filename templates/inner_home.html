@@ -50,14 +50,17 @@
             </div>
         </div>
 
-        <h2 id="saveit">Access Your Saved Notes</h2>
-        <hr class="divider">
+        <div class="title-section">
+            <h2 id="saveit">Access Your Saved Notes</h2>
+            <div class="accent-line"></div>
+        </div>
 
         {% if user_notes %}
             <div class="cards-container" id="notes-container">
                 {% for note in user_notes %}
                     <div class="card-wrapper" data-note-title="{{ note.title|lower }}" data-note-content="{{ note.content|striptags|lower }}">
-                        <div class="card" data-color="color-{{ forloop.counter|divisibleby:6|yesno:'6,forloop.counter' }}">
+                        <div class="card card-color-{{ forloop.counter|divisibleby:6|yesno:'6,forloop.counter' }}">
+                            <div class="card-color-accent"></div>
                             <a href="{% url 'edit_note' note.id %}" class="card-link">
                                 <div class="card-header">
                                     <h3 class="card-title">{{ note.title }}</h3>
