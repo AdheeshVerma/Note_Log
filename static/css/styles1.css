@@ -11,7 +11,7 @@
     --shadow-color: rgba(0, 0, 0, 0.4);
     --glow-blue: 0 0 15px rgba(79, 70, 229, 0.5);
     --toolbar-height: 55px;
-    --header-height: 45px;
+    --header-height: 65px;
 }
 
 * {
@@ -82,7 +82,7 @@ body {
 
 .header-title {
     font-size: 20px;
-    font-weight: 600;
+    font-weight: 200;
     color: var(--text-primary);
     letter-spacing: 0.3px;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
