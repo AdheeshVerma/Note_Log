@@ -12,4 +12,5 @@ urlpatterns = [
     path('save-note/', views.save_note, name='save_note'),
     path('edit-note/<int:note_id>/', views.edit_note, name='edit_note'),
     path('logout/', views.logout_view, name='logout'),
+    path('notes/<int:note_id>/change-theme/', views.change_theme, name='change_theme'),
 ]

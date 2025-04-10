@@ -12,6 +12,7 @@ class Note(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
+    theme = models.CharField(max_length=50, default='default')
 
     def __str__(self):
         return f"Note by {self.user.username} on {self.created_at.strftime('%Y-%m-%d')}"

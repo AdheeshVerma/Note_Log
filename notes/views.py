@@ -6,6 +6,9 @@ from .forms import RegisterForm
 from .models import Note
 from .forms import NoteForm
 from django.utils import timezone
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+
 # Create your views here.
 def index(reqeust):
     return render(reqeust,"index.html")
@@ -91,3 +94,14 @@ def logout_view(request):
     logout(request)  # This logs out the user
     return redirect('login')
 
+@require_POST
+def change_theme(request, note_id):
+    theme = request.POST.get('theme')
+    if theme in ['default', 'nature', 'abstract', 'minimal']:
+        note = Note.objects.get(id=note_id)
+        # Check if the user has permission to edit this note
+        if note.user == request.user:  # Assuming notes have a user field
+            note.theme = theme
+            note.save()
+            return JsonResponse({'success': True})
+    return JsonResponse({'success': False}, status=400)
