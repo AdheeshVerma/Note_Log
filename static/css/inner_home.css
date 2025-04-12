@@ -575,3 +575,38 @@ img {
         grid-template-columns: 1fr;
     }
 }
+@media screen and (max-width: 768px) {
+    .note-container {
+        /* width: 95%; */
+        margin: 10px auto;
+    }
+    
+    .note-card {
+        /* width: 100%; */
+        margin: 10px 0;
+    }
+    
+    .note-editor {
+        width: 100%;
+        padding: 10px;
+    }
+    
+    .toolbar {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .toolbar button {
+        margin: 5px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .note-title {
+        font-size: 18px;
+    }
+    
+    .note-content {
+        font-size: 14px;
+    }
+}
