@@ -13,6 +13,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const audioIcon = document.getElementById("uploadAudioIcon");
   const audioInput = document.getElementById("audioInput");
   const noteForm = document.getElementById("note-form");
+  const speechButton = document.getElementById('speechButton');
+  const speechModal = document.getElementById('speechModal');
+  const closeModalBtn = document.querySelector('.close');
+  const startRecordBtn = document.getElementById('startRecord');
+  const stopRecordBtn = document.getElementById('stopRecord');
+  const insertTextBtn = document.getElementById('insertText');
+  const transcriptBox = document.getElementById('transcriptBox');
 
   // ==================== Placeholders ============================== //
   function addPlaceholder(div, placeholderText) {
@@ -224,4 +231,185 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Make the function globally accessible if needed
   window.saveContent = saveContent;
+
+  // ==================== Speech to Text ============================== //
+  let mediaRecorder;
+  let audioChunks = [];
+
+  // Add event listeners for speech to text modal
+  if (speechButton) {
+    speechButton.addEventListener('click', () => {
+      if (speechModal) {
+        speechModal.style.display = 'block';
+      }
+    });
+  }
+
+  if (closeModalBtn) {
+    closeModalBtn.addEventListener('click', () => {
+      if (speechModal) {
+        speechModal.style.display = 'none';
+      }
+    });
+  }
+
+  // Click outside modal to close
+  window.addEventListener('click', (e) => {
+    if (e.target === speechModal) {
+      speechModal.style.display = 'none';
+    }
+  });
+
+  // Start recording function
+  if (startRecordBtn) {
+    startRecordBtn.addEventListener('click', async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+        audioChunks = [];
+        
+        // Create recording indicator if it doesn't exist
+        let recordingStatus = document.getElementById('recordingStatus');
+        if (!recordingStatus) {
+          recordingStatus = document.createElement('div');
+          recordingStatus.id = 'recordingStatus';
+          recordingStatus.className = 'recording-status';
+          recordingStatus.innerHTML = '<div class="recording-indicator"></div><span>Recording...</span>';
+          
+          // Insert before transcript box
+          if (transcriptBox && transcriptBox.parentNode) {
+            transcriptBox.parentNode.insertBefore(recordingStatus, transcriptBox);
+          }
+        } else {
+          recordingStatus.style.display = 'flex';
+        }
+        
+        mediaRecorder.ondataavailable = (event) => {
+          audioChunks.push(event.data);
+        };
+        
+        mediaRecorder.onstop = async () => {
+          const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+          const formData = new FormData();
+          formData.append('audio', audioBlob);
+          
+          // Update UI
+          if (transcriptBox) {
+            transcriptBox.textContent = "Processing your speech...";
+          }
+          
+          if (startRecordBtn) startRecordBtn.disabled = true;
+          if (stopRecordBtn) stopRecordBtn.disabled = true;
+          
+          try {
+            // Get CSRF token
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value;
+            
+            if (csrfToken) {
+              // Send to backend for transcription
+              const response = await fetch('/transcribe/', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                  'X-CSRFToken': csrfToken
+                }
+              });
+              
+              if (response.ok) {
+                const result = await response.json();
+                if (transcriptBox && result.text) {
+                  transcriptBox.textContent = result.text;
+                } else {
+                  transcriptBox.textContent = "No speech detected. Please try again.";
+                }
+              } else {
+                if (transcriptBox) {
+                  transcriptBox.textContent = "Error processing speech. Please try again.";
+                }
+              }
+            } else {
+              if (transcriptBox) {
+                transcriptBox.textContent = "CSRF token not found. Cannot process request.";
+              }
+            }
+          } catch (error) {
+            console.error("Error processing speech:", error);
+            if (transcriptBox) {
+              transcriptBox.textContent = "Error processing speech. Please try again.";
+            }
+          } finally {
+            if (startRecordBtn) startRecordBtn.disabled = false;
+            if (stopRecordBtn) stopRecordBtn.disabled = true;
+            
+            // Hide recording indicator
+            const recordingStatus = document.getElementById('recordingStatus');
+            if (recordingStatus) {
+              recordingStatus.style.display = 'none';
+            }
+          }
+        };
+        
+        // Start recording
+        mediaRecorder.start();
+        if (startRecordBtn) startRecordBtn.disabled = true;
+        if (stopRecordBtn) stopRecordBtn.disabled = false;
+        if (transcriptBox) transcriptBox.textContent = "Recording... Speak now.";
+        
+      } catch (error) {
+        console.error("Error accessing microphone:", error);
+        if (transcriptBox) {
+          transcriptBox.textContent = "Error accessing microphone. Please check your permissions.";
+        }
+      }
+    });
+  }
+  
+  // Stop recording function
+  if (stopRecordBtn) {
+    stopRecordBtn.addEventListener('click', () => {
+      if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+        mediaRecorder.stop();
+      }
+    });
+  }
+  
+  // Insert transcribed text into note
+  if (insertTextBtn && normalDiv) {
+    insertTextBtn.addEventListener('click', () => {
+      if (transcriptBox && transcriptBox.textContent.trim() !== '') {
+        const transcribedText = transcriptBox.textContent;
+        
+        // Try to insert at cursor position if possible
+        const selection = window.getSelection();
+        if (selection.rangeCount > 0 && normalDiv.contains(selection.anchorNode)) {
+          const range = selection.getRangeAt(0);
+          const textNode = document.createTextNode(transcribedText);
+          range.insertNode(textNode);
+        } else {
+          // Otherwise append to the end
+          normalDiv.innerHTML += normalDiv.innerHTML.endsWith('<br>') ? '' : '<br>';
+          normalDiv.innerHTML += transcribedText;
+        }
+        
+        // Close modal and reset
+        if (speechModal) {
+          speechModal.style.display = 'none';
+        }
+        if (transcriptBox) {
+          transcriptBox.textContent = '';
+        }
+      }
+    });
+  }
+
+  // Add keyframe animation style for recording indicator
+  const styleElement = document.createElement('style');
+  styleElement.textContent = `
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.4; }
+      100% { opacity: 1; }
+    }
+  `;
+  document.head.appendChild(styleElement);
 });
