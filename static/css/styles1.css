@@ -521,6 +521,7 @@ body {
 }
 
 /* Keep the current font import statements */
+/* Speech-to-text modal styling */
 .modal {
     display: none;
     position: fixed;
@@ -529,28 +530,144 @@ body {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    transition: all 0.3s ease;
   }
   
   .modal-content {
-    background-color: var(--card-bg);
-    margin: 15% auto;
-    padding: 20px;
+    background-color: var(--card-bg, #fff);
+    margin: 10% auto;
+    padding: 24px;
     width: 60%;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
+    max-width: 600px;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--border-color, #e0e0e0);
+    animation: modalFadeIn 0.3s ease;
+  }
+  
+  @keyframes modalFadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
   }
   
   .modal-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-color, #e0e0e0);
+  }
+  
+  .modal-header h3 {
+    margin: 0;
+    font-weight: 600;
+    color: var(--text-primary, #333);
+  }
+  
+  .close {
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-secondary, #666);
+    transition: color 0.2s ease;
+  }
+  
+  .close:hover {
+    color: var(--text-primary, #333);
+  }
+  
+  .modal-body {
+    display: flex;
+    flex-direction: column;
   }
   
   #transcriptBox {
     min-height: 150px;
     margin: 20px 0;
-    padding: 10px;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
+    padding: 16px;
+    border: 1px solid var(--border-color, #e0e0e0);
+    border-radius: 8px;
+    background-color: var(--input-bg, #f8f8f8);
+    font-family: inherit;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--text-primary, #333);
+    transition: border-color 0.2s ease;
+    outline: none;
+    overflow-y: auto;
+  }
+  
+  #transcriptBox:focus {
+    border-color: var(--accent-color, #4a90e2);
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+  }
+  
+  .modal-body button {
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+  }
+  
+  #startRecord, #stopRecord {
+    background-color: var(--accent-color, #4a90e2);
+    color: white;
+    margin-right: 10px;
+  }
+  
+  #startRecord:hover, #stopRecord:hover {
+    background-color: var(--accent-dark, #3a80d2);
+  }
+  
+  #startRecord:active, #stopRecord:hover {
+    transform: translateY(1px);
+  }
+  
+  #startRecord:disabled, #stopRecord:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  #insertText {
+    background-color: var(--success-color, #4caf50);
+    color: white;
+    margin-top: 16px;
+    align-self: flex-end;
+  }
+  
+  #insertText:hover {
+    background-color: var(--success-dark, #3d9c40);
+  }
+  
+  .recording-controls {
+    display: flex;
+    margin-bottom: 16px;
+  }
+  
+  .recording-status {
+    display: flex;
+    align-items: center;
+    margin-left: 16px;
+    font-size: 14px;
+    color: var(--text-secondary, #666);
+  }
+  
+  .recording-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #ff4d4f;
+    margin-right: 8px;
+    animation: pulse 1.5s infinite;
+  }
+  
+  @keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.4; }
+    100% { opacity: 1; }
   }
