@@ -50,7 +50,7 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('index')  # Redirect to the home page after registration
+            return redirect('inner_home')  # Redirect to the home page after registration
     else:
         form = RegisterForm()
     return render(request, 'register.html', {'form': form})
