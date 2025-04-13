@@ -176,7 +176,8 @@
                             </div>
                         </li>
                         <li class="tool-button" id="speechButton">
-                            <svg class="tool_icons" ...>[mic icon SVG]</svg>
+                            <img src="{% static '/svgs/voice.svg' %}" alt="Fonts" class="tool_icons">
+
                           </li>
                     </ul>
                 </div>
@@ -216,6 +217,7 @@
           <div class="modal-body">
             <button id="startRecord">Start Recording</button>
             <button id="stopRecord" disabled>Stop Recording</button>
+            
             <div id="transcriptBox" contenteditable="true"></div>
             <button id="insertText">Insert into Note</button>
           </div>
@@ -424,53 +426,53 @@ themeOptions.forEach((option) => {
     });
 
     document.getElementById('speechButton').addEventListener('click', () => {
-  document.getElementById('speechModal').style.display = 'block';
-});
-
-document.querySelector('.close').addEventListener('click', () => {
-  document.getElementById('speechModal').style.display = 'none';
-});
-        let mediaRecorder, audioChunks = [];
-
-document.getElementById('speechButton').addEventListener('click', () => {
-  document.getElementById('speechModal').style.display = 'block';
-});
-
-document.getElementById('startRecord').addEventListener('click', async () => {
-  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-  mediaRecorder = new MediaRecorder(stream);
-  
-  mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
-  mediaRecorder.onstop = async () => {
-    const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-    const formData = new FormData();
-    formData.append('audio', audioBlob);
-    
-    // Send to Django backend
-    const response = await fetch('/transcribe/', {
-      method: 'POST',
-      body: formData,
-      headers: { "X-CSRFToken": "{{ csrf_token }}" }
-    });
-    
-    const transcript = await response.json();
-    document.getElementById('transcriptBox').innerText = transcript.text;
-  };
-  
-  mediaRecorder.start();
-  document.getElementById('stopRecord').disabled = false;
-});
-
-document.getElementById('stopRecord').addEventListener('click', () => {
-  mediaRecorder.stop();
-  audioChunks = [];
-});
-
-document.getElementById('insertText').addEventListener('click', () => {
-  const noteContent = document.getElementById('normal');
-  noteContent.innerText += '\n' + document.getElementById('transcriptBox').innerText;
-  document.getElementById('speechModal').style.display = 'none';
-});
+        document.getElementById('speechModal').style.display = 'block';
+      });
+      
+      document.querySelector('.close').addEventListener('click', () => {
+        document.getElementById('speechModal').style.display = 'none';
+      });
+              let mediaRecorder, audioChunks = [];
+      
+      document.getElementById('speechButton').addEventListener('click', () => {
+        document.getElementById('speechModal').style.display = 'block';
+      });
+      
+      document.getElementById('startRecord').addEventListener('click', async () => {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+        
+        mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+        mediaRecorder.onstop = async () => {
+          const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+          const formData = new FormData();
+          formData.append('audio', audioBlob);
+          
+          // Send to Django backend
+          const response = await fetch('/transcribe/', {
+            method: 'POST',
+            body: formData,
+            headers: { "X-CSRFToken": "{{ csrf_token }}" }
+          });
+          
+          const transcript = await response.json();
+          document.getElementById('transcriptBox').innerText = transcript.text;
+        };
+        
+        mediaRecorder.start();
+        document.getElementById('stopRecord').disabled = false;
+      });
+      
+      document.getElementById('stopRecord').addEventListener('click', () => {
+        mediaRecorder.stop();
+        audioChunks = [];
+      });
+      
+      document.getElementById('insertText').addEventListener('click', () => {
+        const noteContent = document.getElementById('normal');
+        noteContent.innerText += '\n' + document.getElementById('transcriptBox').innerText;
+        document.getElementById('speechModal').style.display = 'none';
+      });
     </script>
 
 </body>
