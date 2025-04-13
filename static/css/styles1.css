@@ -635,7 +635,7 @@ body {
   
   #insertText {
     background-color: var(--success-color, #4caf50);
-    color: white;
+    color: rgb(42, 42, 42);
     margin-top: 16px;
     align-self: flex-end;
   }
