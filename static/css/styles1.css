@@ -417,12 +417,19 @@ body {
     background-size: cover;
     background-position: center;
   }
+  .bg[data-theme="love"] {
+    background-image: url('{% static "themes/love.jpg" %}');
+    background-size: cover;
+    background-position: center;
+  }
   
   /* Make text more readable on image backgrounds */
   .bg[data-theme="nature"] #normal,
   .bg[data-theme="abstract"] #normal,
   .bg[data-theme="minimal"] #normal,
+  .bg[data-theme="love"] #normal,
   .bg[data-theme="nature"] #title,
+  .bg[data-theme="love"] #title,
   .bg[data-theme="abstract"] #title,
   .bg[data-theme="minimal"] #title {
     /* background-color: rgba(255, 255, 255, 0.7); */
@@ -445,4 +452,7 @@ body {
   
   .bg[data-theme="minimal"] {
     background-image: url('../themes/minimal.jpg');
+  }
+  .bg[data-theme="love"] {
+    background-image: url('../themes/love.jpg');
   }

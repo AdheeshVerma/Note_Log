@@ -77,6 +77,15 @@ document.addEventListener("DOMContentLoaded", () => {
               "')"
             bgElement.style.backgroundSize = "cover"
           }
+           else if (theme === "love") {
+            bgElement.style.backgroundImage =
+              "url('" +
+              document
+                .querySelector('.theme-option[data-theme="love"] .theme-preview')
+                .style.backgroundImage.slice(5, -2) +
+              "')"
+            bgElement.style.backgroundSize = "cover"
+          }
 
           themeDropdown.style.display = "none"
           localStorage.setItem("selectedTheme", theme)
