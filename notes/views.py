@@ -8,6 +8,35 @@ from .forms import NoteForm
 from django.utils import timezone
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
+from deepgram import Deepgram
+from django.http import JsonResponse
+import os
+
+def transcribe_audio(request):
+    if request.method == 'POST' and 'audio' in request.FILES:
+        try:
+            audio_file = request.FILES['audio']
+            api_key = os.getenv('DEEPGRAM_API_KEY')
+            
+            if not api_key:
+                return JsonResponse({'error': 'API key missing'}, status=500)
+
+            dg_client = Deepgram(api_key)
+            
+            # Use SYNC_PRERECORDED method
+            response = dg_client.transcription.sync_prerecorded(
+                {'buffer': audio_file, 'mimetype': 'audio/wav'},
+                {'punctuate': True}
+            )
+            
+            return JsonResponse({
+                'text': response['results']['channels'][0]['alternatives'][0]['transcript']
+            })
+            
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+    
+    return JsonResponse({'error': 'Invalid request'}, status=400)
 
 # Create your views here.
 def index(reqeust):
