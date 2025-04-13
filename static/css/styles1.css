@@ -395,7 +395,7 @@ body {
     background-color: #ffffff;
   } */
   
-  .bg[data-theme="nature"] {
+  .bg[data-theme="default"] {
     background-image: url('{% static "themes/default.jpg" %}');
     background-size: cover;
     background-position: center;
