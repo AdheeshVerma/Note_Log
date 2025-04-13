@@ -252,7 +252,7 @@ body {
     font-size: 16px;
     min-height: calc(100vh - var(--header-height) - var(--toolbar-height));
     background-color: rgba(0, 0, 0, 0.65);
-    font-family: "Playwrite HU", "Inter", sans-serif;
+    font-family: "Satisfy", cursive;
     overflow-y: auto;
     position: relative;
 }
