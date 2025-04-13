@@ -478,11 +478,13 @@ body {
     max-height: 300px;
     overflow-y: auto;
 }
+/* Remove the duplicate .font-dropdown definition and use this single version */
 .font-dropdown {
     display: none;
     position: absolute;
     top: 100%;
-    left: 0; /* Changed from right to left */
+    left: 50%; /* Center horizontally relative to the button */
+    transform: translateX(-50%); /* Center it properly */
     background-color: rgb(29, 29, 29);
     border: 1px solid #ddd;
     border-radius: 4px;
