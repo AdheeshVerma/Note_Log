@@ -423,6 +423,58 @@ document.querySelectorAll('a.with-loading').forEach(link => {
     });
 });
 
+// Add this to your existing script section
+document.addEventListener('DOMContentLoaded', function() {
+  // Close mobile menu when a link is clicked
+  document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+    link.addEventListener('click', function() {
+      if (window.innerWidth < 992) {
+        document.querySelector('.navbar-toggler').click();
+      }
+    });
+  });
+
+  // Add smooth scrolling with offset for fixed header
+  document.querySelectorAll('.scroll-to').forEach(link => {
+    link.addEventListener('click', function(event) {
+      event.preventDefault();
+      const targetId = this.getAttribute('data-target');
+      const targetElement = document.querySelector(targetId);
+      
+      // Calculate header height for offset
+      const headerHeight = document.querySelector('.header_section').offsetHeight;
+      
+      // Scroll with offset
+      const offsetPosition = targetElement.offsetTop - headerHeight;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    });
+  });
+
+  // Optimize loading screen for mobile
+  document.querySelectorAll('a.with-loading').forEach(link => {
+    link.addEventListener('click', function(event) {
+      event.preventDefault();
+      
+      // Show the loading screen
+      document.getElementById('loading-screen').style.display = 'flex';
+      
+      // Add a timer to prevent infinite loading on slow connections
+      const timeoutId = setTimeout(() => {
+        window.location.href = this.href;
+      }, 5000); // Fallback after 5 seconds
+      
+      // Regular timer
+      setTimeout(() => {
+        clearTimeout(timeoutId);
+        window.location.href = this.href;
+      }, 2000);
+    });
+  });
+});
 
 </script>
 

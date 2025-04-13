@@ -120,11 +120,17 @@ a:focus {
   min-height: 100%;
 }
 
+/* .hero_area .hero_bg_box img {
+  min-width: 100%;
+  min-height: 100%;
+} */
+
+
 .hero_area .hero_bg_box img {
   min-width: 100%;
   min-height: 100%;
+  object-fit: cover;
 }
-
 .sub_page .hero_area {
   min-height: auto;
   background: linear-gradient(130deg, #231a6f, #0f054c);
@@ -423,7 +429,7 @@ a:focus {
   border-radius: 5px;
 }
 
-.service_section .box .img-box {
+/* .service_section .box .img-box {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -437,13 +443,28 @@ a:focus {
   min-width: 75px;
   height: 75px;
   margin-bottom: 15px;
+} */
+
+.service_section .box .img-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 125px;
+  height: 75px;
+  margin-bottom: 15px;
 }
 
-.service_section .box .img-box img {
+/* .service_section .box .img-box img {
   max-width: 100%;
   max-height: 100%;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
+} */
+
+.service_section .box .img-box img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
 .service_section .box .detail-box h5 {
@@ -695,5 +716,103 @@ a:focus {
   100% { transform: rotate(360deg); }
 }
 
+/* Base responsive fixes */
+@media (max-width: 991px) {
+  .slider_section .detail-box h1 {
+    font-size: 2.5rem;
+  }
+  
+  .slider_section {
+    padding: 45px 0 100px 0;
+  }
+}
 
+@media (max-width: 767px) {
+  .slider_section .detail-box h1 {
+    font-size: 2rem;
+  }
+  
+  .slider_section {
+    padding: 45px 0 75px 0;
+  }
+  
+  .slider_section .img-box {
+    margin: 25px 0;
+  }
+  
+  .about_section .img-box {
+    margin-bottom: 30px;
+  }
+  
+  .service_section .box {
+    padding: 15px;
+  }
+  
+  .hero_area {
+    min-height: auto;
+  }
+}
 
+@media (max-width: 576px) {
+  .slider_section .detail-box h1 {
+    font-size: 1.8rem;
+  }
+  
+  .slider_section .detail-box .btn-box a {
+    width: 140px;
+    padding: 8px 10px;
+  }
+  
+  .heading_container h2 {
+    font-size: 1.8rem;
+  }
+  
+  .service_section .box .img-box {
+    width: 100px;
+    height: 60px;
+  }
+  
+  .custom_nav-container .navbar-nav {
+    padding-top: 15px;
+    align-items: center;
+  }
+  
+  .header_section .container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}
+
+/* Improve loading screen responsiveness */
+#loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* Fix navbar on mobile */
+.custom_nav-container .navbar-nav .nav-item .nav-link {
+  display: inline-block;
+}
+
+/* Fix footer responsiveness */
+@media (max-width: 767px) {
+  .info_section .info_social {
+    justify-content: center;
+  }
+  
+  .info_section .info_links {
+    align-items: center;
+  }
+  
+  .info_section form {
+    margin-top: 15px;
+  }
+}
