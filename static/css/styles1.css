@@ -1,4 +1,9 @@
 /* Base variables */
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
 :root {
     --bg-color: #1a1a1a;
     --sidebar-bg: #252525;
@@ -456,3 +461,39 @@ body {
   .bg[data-theme="love"] {
     background-image: url('../themes/love.jpg');
   }
+
+  /* Font dropdown styles */
+.font-dropdown {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    z-index: 100;
+    width: 200px;
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: 5px;
+}
+
+.font-dropdown.active {
+    display: block;
+}
+
+.font-option {
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.font-option:hover {
+    background-color: #f0f0f0;
+}
+
+.font-option span {
+    display: block;
+    font-size: 16px;
+    padding: 5px 0;
+}
+
+/* Keep the current font import statements */

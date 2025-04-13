@@ -118,3 +118,63 @@ function addPlaceholder(div, placeholderText) {
 // Add placeholders to the title and content divs
 addPlaceholder(titleDiv, 'Title');
 addPlaceholder(normalDiv, 'Enter Your Thoughts...');
+
+// Font dropdown functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const fontButton = document.getElementById('font-button');
+  const fontDropdown = document.getElementById('font-dropdown');
+  const fontOptions = document.querySelectorAll('.font-option');
+  
+  // Toggle font dropdown
+  fontButton.addEventListener('click', function(e) {
+      e.stopPropagation();
+      fontDropdown.classList.toggle('active');
+      
+      // Close theme dropdown if open
+      const themeDropdown = document.getElementById('theme-dropdown');
+      if (themeDropdown && themeDropdown.classList.contains('active')) {
+          themeDropdown.classList.remove('active');
+      }
+  });
+  
+  // Font selection
+  fontOptions.forEach(option => {
+      option.addEventListener('click', function() {
+          const selectedFont = this.getAttribute('data-font');
+          
+          // Apply font to selected text
+          const selection = window.getSelection();
+          if (selection.rangeCount > 0) {
+              const range = selection.getRangeAt(0);
+              if (!range.collapsed) {
+                  // Text is selected, apply font to selection
+                  const span = document.createElement('span');
+                  span.style.fontFamily = selectedFont;
+                  range.surroundContents(span);
+              } else {
+                  // No text selected, apply to editable div for future typing
+                  const editable = document.querySelector('.editable-div');
+                  if (editable) {
+                      editable.style.fontFamily = selectedFont;
+                  }
+              }
+          } else {
+              // Fallback - apply to whole content
+              const editable = document.querySelector('.editable-div');
+              if (editable) {
+                  editable.style.fontFamily = selectedFont;
+              }
+          }
+          
+          // Close dropdown after selection
+          fontDropdown.classList.remove('active');
+      });
+  });
+  
+  // Close dropdowns when clicking outside
+  document.addEventListener('click', function(e) {
+      if (!fontButton.contains(e.target) && !fontDropdown.contains(e.target)) {
+          fontDropdown.classList.remove('active');
+      }
+  });
+});
