@@ -10,8 +10,21 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from deepgram import Deepgram
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 import os
 
+
+@login_required
+@require_POST
+def delete_note(request, note_id):
+    try:
+        note = Note.objects.get(id=note_id, user=request.user)
+        note.delete()
+        return JsonResponse({'success': True})
+    except Note.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Note not found'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
 def transcribe_audio(request):
     if request.method == 'POST' and 'audio' in request.FILES:
         try:

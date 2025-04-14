@@ -590,6 +590,36 @@
           }
           `;
           document.head.appendChild(style);
+
+          // Function to delete the note
+function deleteNote() {
+  if (confirm('Are you sure you want to delete this note? This action cannot be undone.')) {
+      const noteId = document.getElementById('note-form').getAttribute('action').split('/').filter(Boolean).pop();
+      const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+      
+      // Send DELETE request to Django backend
+      fetch(`/notes/${noteId}/delete/`, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+              'X-CSRFToken': csrfToken
+          }
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.success) {
+              // Redirect to notes list page
+              window.location.href = '/notes/';
+          } else {
+              alert('Error deleting note: ' + data.error);
+          }
+      })
+      .catch(error => {
+          console.error('Error:', error);
+          alert('An error occurred while deleting the note.');
+      });
+  }
+}
     </script>
 
 </body>
