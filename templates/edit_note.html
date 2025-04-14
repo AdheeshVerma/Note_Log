@@ -618,7 +618,7 @@ function deleteNote() {
       .then(data => {
           if (data.success) {
               // Redirect to notes list page
-              window.location.href = '/notes/';
+              window.location.href = 'inner_home';
           } else {
               alert('Error deleting note: ' + data.error);
           }
