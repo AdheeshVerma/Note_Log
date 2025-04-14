@@ -132,17 +132,95 @@ body {
 
 /* Toolbar styling with improved visual depth */
 .toolbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 22px;
-    background: linear-gradient(to bottom, rgba(32, 32, 38, 0.9), rgba(28, 28, 34, 0.85));
-    border-bottom: 1px solid var(--border-color);
-    height: var(--toolbar-height);
-    position: sticky;
-    top: var(--header-height);
-    z-index: 10;
-    backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 22px;
+  background: linear-gradient(to bottom, rgba(32, 32, 38, 0.9), rgba(28, 28, 34, 0.85));
+  border-bottom: 1px solid var(--border-color);
+  height: var(--toolbar-height);
+  position: sticky;
+  top: var(--header-height);
+  z-index: 10;
+  backdrop-filter: blur(6px);
+}
+@media (max-width: 768px) {
+  .toolbar {
+      overflow-x: auto;
+      padding: 10px 15px;
+      flex-wrap: wrap;
+      height: auto; /* Allow height to adjust based on content */
+      min-height: var(--toolbar-height);
+  }
+  
+  .tool_manager {
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      padding: 5px 0;
+  }
+  
+  .tools {
+      margin-bottom: 5px;
+  }
+  
+  /* Fix dropdown positioning for mobile */
+  .theme-dropdown, .font-dropdown {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 85%;
+      max-width: 300px;
+      z-index: 1050;
+      max-height: 60vh;
+  }
+  
+  /* Ensure dropdown open state works on mobile */
+  .font-dropdown.active, 
+  .theme-dropdown.active {
+      display: block;
+  }
+  
+  .select-wrapper {
+      margin-bottom: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .toolbar {
+      padding: 8px 10px;
+      gap: 5px;
+  }
+  
+  .tool-button, .tool-link {
+      padding: 6px;
+  }
+  
+  .tool_icons {
+      height: 18px;
+      width: 18px;
+  }
+  
+  #fontSizeSelector, #colorpallete {
+      height: 28px;
+      padding: 2px 5px;
+      font-size: 13px;
+  }
+  
+  /* Add overlay background for dropdowns on mobile */
+  .theme-dropdown::before, 
+  .font-dropdown::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: -1;
+  }
 }
 
 .tool_manager {
@@ -317,13 +395,13 @@ body {
 
 /* Responsive styles */
 @media (max-width: 768px) {
-    .toolbar {
+    /* .toolbar {
         overflow-x: auto;
     }
     
     .tool_manager {
         gap: 4px;
-    }
+    } */
     
     #title {
         font-size: 32px;
