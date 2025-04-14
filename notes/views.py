@@ -12,7 +12,7 @@ from deepgram import Deepgram
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 import os
-
+from django.contrib import messages
 
 @login_required
 @require_POST
@@ -85,6 +85,9 @@ def login_view(request):
 
 def save_note(request):
     if request.method == 'POST':
+        if not request.user.is_authenticated:
+            messages.error(request, "🚫 You must be signed in to save a note.")
+            return redirect('login')
         form = NoteForm(request.POST)
         if form.is_valid():
             note = form.save(commit=False)
