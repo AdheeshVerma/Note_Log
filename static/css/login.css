@@ -74,6 +74,7 @@ button[type="submit"] {
     width: 100%;
     margin-top: 10px;
     box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 button[type="submit"]:hover {

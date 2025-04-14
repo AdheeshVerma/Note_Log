@@ -59,12 +59,14 @@ input[type="password"]::placeholder {
     font-size: 16px;
     width: 100%;
     margin-top: 20px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
     /* box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3); */
 }
 
 #register:hover {
     background-color: rgba(32, 40, 58,0.8);;
     box-shadow: 0 4px 15px rgba(255, 255, 255, 0.5);
+
 }
 
 .form-container {
