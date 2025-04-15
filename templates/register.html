@@ -17,7 +17,9 @@
        <center><h2 style="font-family: Parkinsans, sans-serif;">Don't have an account?</h2></center> 
         {% csrf_token %}
         {{ form.as_p }}
-        <center><button type="submit" id="register">Sign Up</button></center>
+        <center>
+            Already have an account? <a href="{%url "login"%}">Login</a>
+            <button type="submit" id="register">Sign Up</button></center>
     </form>
 </body>
 </html>

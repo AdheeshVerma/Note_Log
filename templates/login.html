@@ -14,6 +14,8 @@
     <h2>Welcome Back</h2>
     {% csrf_token %}
     {{ form.as_p }}
+    Don't have an account? <a href="{%url "register"%}">Register</a>
+
     <button type="submit">Sign In</button>
 </form>
 
