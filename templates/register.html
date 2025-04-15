@@ -11,6 +11,22 @@
     <link rel="stylesheet" href="{% static "/css/register.css" %}">
     <link rel="shortcut icon" href="{% static 'favicon/notes.png' %}" type="image/x-icon">
     <title>Register</title>
+    <style>
+        a::before {
+            color: #555;
+          }
+          
+          a::after {
+            content: " →";
+            color: #007BFF;
+            transition: margin-left 0.3s;
+          }
+          
+          a:hover::after {
+            margin-left: 5px;
+          }
+          
+    </style>
 </head>
 <body>
     <form method="post">
